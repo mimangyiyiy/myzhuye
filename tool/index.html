@@ -531,19 +531,22 @@
             var toolsGrid = document.getElementById('toolsGrid');
             var toolCards = document.querySelectorAll('.tool-card');
 
-            // 检测是否从主页跳转过来
             var fromHome = sessionStorage.getItem('toolbox_from_home');
 
             if (fromHome === 'true') {
                 sessionStorage.removeItem('toolbox_from_home');
 
                 // 从主页跳转：有弹入动画
+                // 先确保导航栏处于初始隐藏状态
                 navBar.style.transform = 'scale(0.3) translateY(-30px)';
                 navBar.style.opacity = '0';
+                // 强制添加 expanded 类 (动画结束后会变成 scale(1) opacity:1)
+                // 但 transition 会处理从当前状态到 expanded 状态的过渡
                 requestAnimationFrame(function() {
                     navBar.classList.add('expanded');
                 });
 
+                // 卡片延迟弹入
                 setTimeout(function() {
                     toolsGrid.classList.add('visible');
                     toolCards.forEach(function(card, index) {
@@ -555,7 +558,7 @@
                 }, 650);
 
             } else {
-                // 直接访问：直接显示所有内容（无动画）
+                // 直接访问：无动画，直接显示
                 navBar.classList.add('expanded');
                 toolsGrid.classList.add('visible');
                 toolCards.forEach(function(card) {
