@@ -250,7 +250,7 @@
             color: rgba(255, 255, 255, 0.40);
         }
 
-        /* ===== 弹幕 (增强版) ===== */
+        /* ===== 弹幕 ===== */
         .danmaku-container {
             position: fixed;
             top: 0;
@@ -527,15 +527,17 @@
         (function() {
             'use strict';
 
-            // 导航栏弹入 + 卡片依次弹入
             var navBar = document.getElementById('navBar');
             var toolsGrid = document.getElementById('toolsGrid');
             var toolCards = document.querySelectorAll('.tool-card');
 
+            // 检测是否从主页跳转过来
             var fromHome = sessionStorage.getItem('toolbox_from_home');
+
             if (fromHome === 'true') {
                 sessionStorage.removeItem('toolbox_from_home');
 
+                // 从主页跳转：有弹入动画
                 navBar.style.transform = 'scale(0.3) translateY(-30px)';
                 navBar.style.opacity = '0';
                 requestAnimationFrame(function() {
@@ -553,6 +555,7 @@
                 }, 650);
 
             } else {
+                // 直接访问：直接显示所有内容（无动画）
                 navBar.classList.add('expanded');
                 toolsGrid.classList.add('visible');
                 toolCards.forEach(function(card) {
