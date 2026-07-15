@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>小逸罒不迷茫 · 工具箱</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -12,19 +12,25 @@
             box-sizing: border-box;
         }
 
+        html,
         body {
             min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        body {
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            padding: 2rem;
+            padding: 1.5rem;
             background-image: url('https://ts1.tc.mm.bing.net/th/id/R-C.341c660ea4f22a2ef253c572e3134db1?rik=qJ4Fb1M9wTq1Yw&riu=http%3a%2f%2fpic3.40017.cn%2fline%2fadmin%2f2015%2f04%2f30%2f09%2fj6XJMg.jpg&ehk=rS20cy%2bfJWZvkz%2bRySwTxuDAkpxgNsXyjvc7M069XLU%3d&risl=&pid=ImgRaw&r=0');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             position: relative;
-            overflow: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
         body::before {
             content: '';
@@ -51,9 +57,10 @@
             gap: 2.5rem;
             position: relative;
             z-index: 1;
+            padding: 0.5rem 0;
         }
 
-        /* ===== 导航栏 ===== */
+        /* ===== 导航栏 (从卡片大小弹入) ===== */
         .nav-bar {
             display: flex;
             align-items: center;
@@ -66,8 +73,7 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             min-height: 60px;
-            /* 初始：卡片大小，从顶部飞入 */
-            transform: scale(0.4) translateY(-20px);
+            transform: scale(0.3) translateY(-30px);
             opacity: 0;
             transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             transform-origin: top center;
@@ -152,8 +158,7 @@
             cursor: pointer;
             min-height: 200px;
             justify-content: center;
-            /* 初始：从导航栏位置弹出 */
-            transform: scale(0.3) translateY(-60px);
+            transform: scale(0.3) translateY(-50px);
             opacity: 0;
             transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
@@ -245,7 +250,7 @@
             color: rgba(255, 255, 255, 0.40);
         }
 
-        /* ===== 弹幕 ===== */
+        /* ===== 弹幕 (增强版) ===== */
         .danmaku-container {
             position: fixed;
             top: 0;
@@ -259,14 +264,14 @@
         .danmaku-item {
             position: absolute;
             white-space: nowrap;
-            padding: 0.3rem 1.2rem;
+            padding: 0.35rem 1.4rem;
             border-radius: 100px;
-            background: rgba(10, 18, 30, 0.08);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.01);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            font-size: 0.7rem;
+            background: rgba(10, 18, 30, 0.12);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.015);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            font-size: 0.75rem;
             font-weight: 300;
             letter-spacing: 1.5px;
             text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
@@ -276,23 +281,31 @@
         }
         .danmaku-item.color-1 {
             color: rgba(100, 200, 255, 0.15);
-            border-color: rgba(100, 200, 255, 0.015);
+            border-color: rgba(100, 200, 255, 0.02);
         }
         .danmaku-item.color-2 {
             color: rgba(255, 200, 100, 0.15);
-            border-color: rgba(255, 200, 100, 0.015);
+            border-color: rgba(255, 200, 100, 0.02);
         }
         .danmaku-item.color-3 {
             color: rgba(255, 100, 150, 0.15);
-            border-color: rgba(255, 100, 150, 0.015);
+            border-color: rgba(255, 100, 150, 0.02);
         }
         .danmaku-item.color-4 {
             color: rgba(100, 255, 150, 0.15);
-            border-color: rgba(100, 255, 150, 0.015);
+            border-color: rgba(100, 255, 150, 0.02);
         }
         .danmaku-item.color-5 {
             color: rgba(200, 150, 255, 0.15);
-            border-color: rgba(200, 150, 255, 0.015);
+            border-color: rgba(200, 150, 255, 0.02);
+        }
+        .danmaku-item.color-6 {
+            color: rgba(255, 150, 200, 0.15);
+            border-color: rgba(255, 150, 200, 0.02);
+        }
+        .danmaku-item.color-7 {
+            color: rgba(150, 255, 200, 0.15);
+            border-color: rgba(150, 255, 200, 0.02);
         }
         @keyframes danmakuMove {
             0% {
@@ -368,6 +381,11 @@
             }
         }
         @media (max-width: 700px) {
+            body {
+                padding: 1rem;
+                align-items: flex-start;
+                padding-top: 1.5rem;
+            }
             .tools-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 1rem;
@@ -412,6 +430,10 @@
             }
         }
         @media (max-width: 480px) {
+            body {
+                padding: 0.8rem;
+                padding-top: 1rem;
+            }
             .tools-grid {
                 grid-template-columns: 1fr;
                 gap: 0.8rem;
@@ -440,6 +462,16 @@
             .nav-bar .spacer {
                 width: 20px;
             }
+            .music-float {
+                bottom: 12px;
+                right: 12px;
+                padding: 0.3rem 0.8rem;
+                font-size: 0.55rem;
+                gap: 0.4rem;
+            }
+            .music-float .track-name {
+                max-width: 60px;
+            }
         }
     </style>
 </head>
@@ -449,7 +481,6 @@
 
     <div class="main-container">
 
-        <!-- 导航栏 -->
         <nav class="nav-bar" id="navBar">
             <a href="/" class="back-btn" id="backBtn">
                 <i class="fas fa-arrow-left"></i> 返回主页
@@ -458,7 +489,6 @@
             <span class="spacer"></span>
         </nav>
 
-        <!-- 工具卡片 -->
         <div class="tools-grid" id="toolsGrid">
 
             <a href="https://yiyia.pages.dev" target="_blank" class="tool-card" data-delay="0.10">
@@ -486,7 +516,6 @@
         </div>
     </div>
 
-    <!-- 音乐悬浮窗 -->
     <div class="music-float" id="musicFloat">
         <i class="fas fa-music" id="musicIcon"></i>
         <span class="track-name" id="trackName">minecraft.mp3</span>
@@ -498,26 +527,21 @@
         (function() {
             'use strict';
 
-            // ============================================================
-            // 1. 弹入动画：导航栏先展开 → 卡片再弹入
-            // ============================================================
+            // 导航栏弹入 + 卡片依次弹入
             var navBar = document.getElementById('navBar');
             var toolsGrid = document.getElementById('toolsGrid');
             var toolCards = document.querySelectorAll('.tool-card');
 
-            // 检测是否从主页跳转过来
             var fromHome = sessionStorage.getItem('toolbox_from_home');
             if (fromHome === 'true') {
                 sessionStorage.removeItem('toolbox_from_home');
 
-                // 导航栏从卡片大小展开
-                navBar.style.transform = 'scale(0.4) translateY(-20px)';
+                navBar.style.transform = 'scale(0.3) translateY(-30px)';
                 navBar.style.opacity = '0';
                 requestAnimationFrame(function() {
                     navBar.classList.add('expanded');
                 });
 
-                // 导航栏展开后 (0.6s)，工具网格出现，卡片弹入
                 setTimeout(function() {
                     toolsGrid.classList.add('visible');
                     toolCards.forEach(function(card, index) {
@@ -529,7 +553,6 @@
                 }, 650);
 
             } else {
-                // 直接访问：正常显示
                 navBar.classList.add('expanded');
                 toolsGrid.classList.add('visible');
                 toolCards.forEach(function(card) {
@@ -537,26 +560,22 @@
                 });
             }
 
-            // ============================================================
-            // 2. 返回主页
-            // ============================================================
+            // 返回主页
             document.getElementById('backBtn').addEventListener('click', function(e) {
                 e.preventDefault();
                 sessionStorage.setItem('toolbox_return', 'true');
 
-                // 卡片缩回
                 toolCards.forEach(function(card, index) {
                     setTimeout(function() {
                         card.style.transition = 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
-                        card.style.transform = 'scale(0.3) translateY(-60px)';
+                        card.style.transform = 'scale(0.3) translateY(-50px)';
                         card.style.opacity = '0';
                     }, index * 60);
                 });
 
-                // 导航栏缩小
                 setTimeout(function() {
                     navBar.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-                    navBar.style.transform = 'scale(0.4) translateY(-20px)';
+                    navBar.style.transform = 'scale(0.3) translateY(-30px)';
                     navBar.style.opacity = '0';
                 }, 250);
 
@@ -565,9 +584,7 @@
                 }, 750);
             });
 
-            // ============================================================
-            // 3. 音乐控制
-            // ============================================================
+            // 音乐控制
             var audio = new Audio('minecraft.mp3');
             audio.loop = true;
             audio.volume = 0.25;
@@ -608,9 +625,7 @@
                 }
             }, { once: false });
 
-            // ============================================================
-            // 4. B站查询
-            // ============================================================
+            // B站查询
             var biliInput = document.getElementById('biliInput');
             var biliGoBtn = document.getElementById('biliGoBtn');
 
@@ -630,9 +645,7 @@
                 }
             });
 
-            // ============================================================
-            // 5. 弹幕
-            // ============================================================
+            // 弹幕
             var danmakuContainer = document.getElementById('danmakuContainer');
             var danmakuList = [
                 { text: '小逸罒不迷茫', color: 'color-1' },
@@ -640,16 +653,29 @@
                 { text: '我的世界', color: 'color-3' },
                 { text: '建筑大师', color: 'color-4' },
                 { text: '红石科技', color: 'color-5' },
-                { text: '无限可能', color: 'color-1' },
-                { text: '探索世界', color: 'color-2' },
-                { text: '冒险精神', color: 'color-3' },
-                { text: '自由创造', color: 'color-4' },
-                { text: '方块世界', color: 'color-5' },
-                { text: '匠心筑梦', color: 'color-1' },
-                { text: '不迷茫', color: 'color-2' },
-                { text: '创造无限', color: 'color-3' },
-                { text: '玩转红石', color: 'color-4' },
-                { text: '生存挑战', color: 'color-5' }
+                { text: '无限可能', color: 'color-6' },
+                { text: '探索世界', color: 'color-7' },
+                { text: '冒险精神', color: 'color-1' },
+                { text: '自由创造', color: 'color-2' },
+                { text: '方块世界', color: 'color-3' },
+                { text: '匠心筑梦', color: 'color-4' },
+                { text: '不迷茫', color: 'color-5' },
+                { text: '创造无限', color: 'color-6' },
+                { text: '玩转红石', color: 'color-7' },
+                { text: '生存挑战', color: 'color-1' },
+                { text: '喜欢我的世界', color: 'color-2' },
+                { text: '建筑党', color: 'color-3' },
+                { text: '红石玩家', color: 'color-4' },
+                { text: '冒险家', color: 'color-5' },
+                { text: '创造者', color: 'color-6' },
+                { text: '小逸', color: 'color-7' },
+                { text: '我的世界真好玩', color: 'color-1' },
+                { text: '一起冒险吧', color: 'color-2' },
+                { text: '建造梦想', color: 'color-3' },
+                { text: '红石逻辑', color: 'color-4' },
+                { text: '生存大师', color: 'color-5' },
+                { text: '创造无限', color: 'color-6' },
+                { text: '探索未知', color: 'color-7' }
             ];
 
             function createDanmaku() {
@@ -657,19 +683,20 @@
                 var data = danmakuList[Math.floor(Math.random() * danmakuList.length)];
                 el.className = 'danmaku-item ' + data.color;
                 el.textContent = data.text;
-                el.style.top = (8 + Math.random() * 80) + '%';
-                el.style.fontSize = (0.45 + Math.random() * 0.3) + 'rem';
-                el.style.opacity = 0.03 + Math.random() * 0.07;
-                var duration = 14 + Math.random() * 16;
+                el.style.top = (5 + Math.random() * 85) + '%';
+                el.style.fontSize = (0.5 + Math.random() * 0.5) + 'rem';
+                el.style.opacity = 0.03 + Math.random() * 0.10;
+                var duration = 12 + Math.random() * 18;
                 el.style.animationDuration = duration + 's';
-                el.style.animationDelay = Math.random() * 20 + 's';
+                el.style.animationDelay = Math.random() * 25 + 's';
                 danmakuContainer.appendChild(el);
-                setTimeout(function() { if (el.parentNode) el.remove(); }, (duration + 20) * 1000 + 500);
+                setTimeout(function() { if (el.parentNode) el.remove(); }, (duration + 25) * 1000 + 500);
             }
-            for (var i = 0; i < 30; i++) setTimeout(createDanmaku, i * 300);
-            setInterval(createDanmaku, 1500 + Math.random() * 2500);
 
-            console.log('✨ 小逸罒不迷茫 · 工具箱');
+            for (var i = 0; i < 50; i++) {
+                setTimeout(createDanmaku, i * 200);
+            }
+            setInterval(createDanmaku, 1000 + Math.random() * 2000);
         })();
     </script>
 </body>
