@@ -6,6 +6,7 @@
     <title>小逸罒不迷茫 · 工具箱</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* ===== 全局重置 ===== */
         * {
             margin: 0;
             padding: 0;
@@ -37,7 +38,7 @@
                 radial-gradient(ellipse at 15% 25%, rgba(255, 100, 150, 0.15) 0%, transparent 50%),
                 radial-gradient(ellipse at 85% 75%, rgba(50, 150, 255, 0.15) 0%, transparent 50%),
                 radial-gradient(ellipse at 50% 50%, rgba(255, 200, 50, 0.08) 0%, transparent 60%),
-                rgba(0, 0, 0, 0.45);
+                rgba(0, 0, 0, 0.50);
             backdrop-filter: blur(8px);
             z-index: 0;
             pointer-events: none;
@@ -53,24 +54,24 @@
             z-index: 1;
         }
 
-        /* ===== 导航栏 (从卡片大小弹性展开) ===== */
+        /* ===== 导航栏 ===== */
         .nav-bar {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0.6rem 1.8rem;
-            background: rgba(8, 12, 20, 0.25);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 4rem;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            background: rgba(8, 12, 20, 0.35);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-radius: 3.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             min-height: 56px;
-            /* 初始为卡片大小，然后弹性展开 */
-            transform: scale(0.92);
-            opacity: 0.5;
+            transform: scale(0.5);
+            opacity: 0;
             transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             transform-origin: top center;
+            will-change: transform, opacity;
         }
         .nav-bar.expanded {
             transform: scale(1);
@@ -80,44 +81,53 @@
         .nav-bar .back-btn {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             text-decoration: none;
-            color: rgba(255, 255, 255, 0.20);
+            color: rgba(255, 255, 255, 0.30);
             font-size: 0.85rem;
             letter-spacing: 2px;
-            transition: 0.3s;
-            padding: 0.4rem 1.2rem;
+            padding: 0.35rem 1.2rem;
             border-radius: 3rem;
             background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.03);
             cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.4s ease 0.3s;
+        }
+        .nav-bar.expanded .back-btn {
+            opacity: 1;
         }
         .nav-bar .back-btn:hover {
-            background: rgba(255, 255, 255, 0.04);
-            color: rgba(255, 255, 255, 0.40);
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.55);
         }
         .nav-bar .back-btn i {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.06);
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.10);
         }
         .nav-bar .page-title {
             font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.05);
-            letter-spacing: 6px;
+            color: rgba(255, 255, 255, 0.12);
+            letter-spacing: 8px;
             text-transform: uppercase;
+            opacity: 0;
+            transition: opacity 0.4s ease 0.3s;
+        }
+        .nav-bar.expanded .page-title {
+            opacity: 1;
         }
         .nav-bar .spacer {
-            width: 100px;
+            width: 90px;
         }
 
-        /* ===== 工具网格 (入场延迟) ===== */
+        /* ===== 工具网格 ===== */
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.8rem;
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s;
+            transform: translateY(25px);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s;
         }
         .tools-grid.visible {
             opacity: 1;
@@ -125,49 +135,49 @@
         }
 
         .tool-card {
-            background: rgba(8, 12, 20, 0.20);
-            backdrop-filter: blur(14px) saturate(150%);
-            -webkit-backdrop-filter: blur(14px) saturate(150%);
+            background: rgba(8, 12, 20, 0.28);
+            backdrop-filter: blur(16px) saturate(160%);
+            -webkit-backdrop-filter: blur(16px) saturate(160%);
             border-radius: 3rem;
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            padding: 2.5rem 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 2.8rem 2rem;
             text-align: center;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
             transition: all 0.3s ease;
             text-decoration: none;
-            color: rgba(255, 255, 255, 0.12);
+            color: rgba(255, 255, 255, 0.18);
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 0.8rem;
             cursor: pointer;
-            min-height: 190px;
+            min-height: 200px;
             justify-content: center;
         }
         .tool-card:hover {
-            background: rgba(20, 30, 50, 0.25);
-            border-color: rgba(255, 255, 255, 0.03);
-            transform: translateY(-4px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.20);
+            background: rgba(20, 30, 50, 0.35);
+            border-color: rgba(255, 255, 255, 0.04);
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
         }
         .tool-card i {
-            font-size: 3rem;
-            color: rgba(255, 255, 255, 0.03);
+            font-size: 3.2rem;
+            color: rgba(255, 255, 255, 0.05);
             transition: 0.3s;
         }
         .tool-card:hover i {
-            color: rgba(255, 200, 100, 0.06);
+            color: rgba(255, 200, 100, 0.12);
         }
         .tool-card .tool-name {
             font-size: 1.2rem;
             font-weight: 300;
-            letter-spacing: 4px;
-            color: rgba(255, 255, 255, 0.10);
+            letter-spacing: 5px;
+            color: rgba(255, 255, 255, 0.20);
         }
         .tool-card .tool-desc {
             font-size: 0.6rem;
-            color: rgba(255, 255, 255, 0.03);
-            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.06);
+            letter-spacing: 4px;
         }
 
         /* ===== B站查询 ===== */
@@ -185,9 +195,9 @@
             flex: 1;
             padding: 0.4rem 1rem;
             border-radius: 3rem;
-            border: 1px solid rgba(255, 255, 255, 0.015);
-            background: rgba(255, 255, 255, 0.01);
-            color: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.02);
+            color: rgba(255, 255, 255, 0.25);
             font-size: 0.7rem;
             outline: none;
             transition: 0.2s;
@@ -195,18 +205,18 @@
             font-family: inherit;
         }
         .tool-card.bili-query .query-row input::placeholder {
-            color: rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.05);
         }
         .tool-card.bili-query .query-row input:focus {
-            border-color: rgba(255, 255, 255, 0.03);
-            background: rgba(255, 255, 255, 0.02);
+            border-color: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.03);
         }
         .tool-card.bili-query .query-row .query-btn {
             padding: 0.4rem 1.2rem;
             border-radius: 3rem;
             border: 1px solid rgba(255, 255, 255, 0.01);
-            background: rgba(255, 255, 255, 0.01);
-            color: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.02);
+            color: rgba(255, 255, 255, 0.08);
             cursor: pointer;
             font-size: 0.65rem;
             transition: 0.2s;
@@ -214,8 +224,8 @@
             font-family: inherit;
         }
         .tool-card.bili-query .query-row .query-btn:hover {
-            background: rgba(255, 255, 255, 0.02);
-            color: rgba(255, 255, 255, 0.10);
+            background: rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.18);
         }
 
         /* ===== 弹幕 ===== */
@@ -234,11 +244,11 @@
             white-space: nowrap;
             padding: 0.3rem 1.2rem;
             border-radius: 100px;
-            background: rgba(10, 18, 30, 0.10);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(10, 18, 30, 0.08);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.01);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             font-size: 0.7rem;
             font-weight: 300;
             letter-spacing: 1.5px;
@@ -248,23 +258,23 @@
             user-select: none;
         }
         .danmaku-item.color-1 {
-            color: rgba(100, 200, 255, 0.10);
+            color: rgba(100, 200, 255, 0.12);
             border-color: rgba(100, 200, 255, 0.015);
         }
         .danmaku-item.color-2 {
-            color: rgba(255, 200, 100, 0.10);
+            color: rgba(255, 200, 100, 0.12);
             border-color: rgba(255, 200, 100, 0.015);
         }
         .danmaku-item.color-3 {
-            color: rgba(255, 100, 150, 0.10);
+            color: rgba(255, 100, 150, 0.12);
             border-color: rgba(255, 100, 150, 0.015);
         }
         .danmaku-item.color-4 {
-            color: rgba(100, 255, 150, 0.10);
+            color: rgba(100, 255, 150, 0.12);
             border-color: rgba(100, 255, 150, 0.015);
         }
         .danmaku-item.color-5 {
-            color: rgba(200, 150, 255, 0.10);
+            color: rgba(200, 150, 255, 0.12);
             border-color: rgba(200, 150, 255, 0.015);
         }
         @keyframes danmakuMove {
@@ -292,44 +302,44 @@
             bottom: 30px;
             right: 30px;
             z-index: 9998;
-            background: rgba(8, 12, 20, 0.25);
+            background: rgba(8, 12, 20, 0.28);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-radius: 4rem;
-            padding: 0.6rem 1.6rem 0.6rem 1.4rem;
+            padding: 0.5rem 1.4rem 0.5rem 1.2rem;
             border: 1px solid rgba(255, 255, 255, 0.02);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
             display: flex;
             align-items: center;
-            gap: 1rem;
-            color: rgba(255, 255, 255, 0.06);
+            gap: 0.8rem;
+            color: rgba(255, 255, 255, 0.10);
             font-size: 0.75rem;
             pointer-events: auto;
         }
         .music-float i {
             font-size: 1.1rem;
-            color: rgba(255, 200, 100, 0.03);
+            color: rgba(255, 200, 100, 0.04);
         }
         .music-float .ctrl-btn {
             background: rgba(255, 255, 255, 0.01);
             border: 1px solid rgba(255, 255, 255, 0.01);
-            color: rgba(255, 255, 255, 0.04);
-            padding: 0.2rem 0.8rem;
+            color: rgba(255, 255, 255, 0.08);
+            padding: 0.15rem 0.7rem;
             border-radius: 30px;
             cursor: pointer;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             transition: 0.2s;
         }
         .music-float .ctrl-btn:hover {
-            background: rgba(255, 200, 100, 0.015);
-            color: rgba(255, 200, 100, 0.06);
+            background: rgba(255, 200, 100, 0.02);
+            color: rgba(255, 200, 100, 0.12);
         }
         .music-float .track-name {
-            max-width: 120px;
+            max-width: 100px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            color: rgba(255, 255, 255, 0.02);
+            color: rgba(255, 255, 255, 0.04);
             font-size: 0.65rem;
             letter-spacing: 1px;
         }
@@ -346,15 +356,15 @@
                 border-radius: 2.5rem;
             }
             .tool-card i {
-                font-size: 2.2rem;
+                font-size: 2.4rem;
             }
             .tool-card .tool-name {
                 font-size: 1rem;
             }
             .nav-bar {
                 padding: 0.4rem 1rem;
-                border-radius: 3rem;
-                min-height: 48px;
+                border-radius: 2.5rem;
+                min-height: 46px;
             }
             .nav-bar .page-title {
                 font-size: 0.6rem;
@@ -362,7 +372,7 @@
             }
             .nav-bar .back-btn {
                 font-size: 0.7rem;
-                padding: 0.3rem 0.8rem;
+                padding: 0.25rem 0.8rem;
             }
             .danmaku-item {
                 font-size: 0.6rem;
@@ -371,9 +381,9 @@
             .music-float {
                 bottom: 16px;
                 right: 16px;
-                padding: 0.4rem 1.2rem;
+                padding: 0.4rem 1rem;
                 font-size: 0.65rem;
-                gap: 0.6rem;
+                gap: 0.5rem;
             }
         }
         @media (max-width: 480px) {
@@ -383,14 +393,14 @@
             }
             .tool-card {
                 min-height: 120px;
-                padding: 1.2rem 1rem;
+                padding: 1.4rem 1rem;
                 border-radius: 2rem;
             }
             .tool-card i {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             .tool-card .tool-name {
-                font-size: 0.85rem;
+                font-size: 0.9rem;
                 letter-spacing: 2px;
             }
             .tool-card.bili-query .query-row {
@@ -402,6 +412,9 @@
                 font-size: 0.5rem;
                 padding: 0.15rem 0.7rem;
             }
+            .nav-bar .spacer {
+                width: 30px;
+            }
         }
     </style>
 </head>
@@ -411,7 +424,7 @@
 
     <div class="main-container">
 
-        <!-- 导航栏：从卡片大小弹性展开 -->
+        <!-- 导航栏 -->
         <nav class="nav-bar" id="navBar">
             <a href="/" class="back-btn" id="backBtn">
                 <i class="fas fa-arrow-left"></i> 返回主页
@@ -420,17 +433,21 @@
             <span class="spacer"></span>
         </nav>
 
+        <!-- 工具卡片 -->
         <div class="tools-grid" id="toolsGrid">
+
             <a href="https://yiyia.pages.dev" target="_blank" class="tool-card">
                 <i class="fas fa-folder-open"></i>
                 <span class="tool-name">作品集</span>
                 <span class="tool-desc">我的创作 · 项目展示</span>
             </a>
+
             <a href="https://jianzhuzhuanhuanmimangdeyiyihhhahahahchaojiwidiniubiderwnh.pages.dev/" target="_blank" class="tool-card">
                 <i class="fas fa-code"></i>
                 <span class="tool-name">指令转换</span>
                 <span class="tool-desc">快捷转换工具</span>
             </a>
+
             <div class="tool-card bili-query">
                 <i class="fab fa-bilibili"></i>
                 <span class="tool-name">B站查询</span>
@@ -440,9 +457,11 @@
                     <button class="query-btn" id="biliGoBtn">跳转</button>
                 </div>
             </div>
+
         </div>
     </div>
 
+    <!-- 音乐悬浮窗 -->
     <div class="music-float" id="musicFloat">
         <i class="fas fa-music" id="musicIcon"></i>
         <span class="track-name" id="trackName">minecraft.mp3</span>
@@ -455,51 +474,40 @@
             'use strict';
 
             // ============================================================
-            // 1. 导航栏弹性展开动画 (从卡片大小弹开)
+            // 1. 导航栏弹性展开
             // ============================================================
             const navBar = document.getElementById('navBar');
             const toolsGrid = document.getElementById('toolsGrid');
 
-            // 检查是否从主页跳转过来
             const fromHome = sessionStorage.getItem('toolbox_from_home');
             if (fromHome === 'true') {
                 sessionStorage.removeItem('toolbox_from_home');
-                // 从主页飞来：导航栏从卡片大小弹性展开
-                navBar.style.transform = 'scale(0.6)';
-                navBar.style.opacity = '0.3';
+                navBar.style.transform = 'scale(0.4)';
+                navBar.style.opacity = '0';
                 requestAnimationFrame(() => {
                     navBar.classList.add('expanded');
                 });
-                // 工具网格延迟出现
                 setTimeout(() => {
                     toolsGrid.classList.add('visible');
-                }, 300);
+                }, 380);
             } else {
-                // 直接访问：正常显示
                 navBar.classList.add('expanded');
                 toolsGrid.classList.add('visible');
             }
 
             // ============================================================
-            // 2. 返回主页 (反向弹性收缩)
+            // 2. 返回主页
             // ============================================================
             document.getElementById('backBtn').addEventListener('click', function(e) {
                 e.preventDefault();
-
-                // 通知主页执行回弹动画
                 sessionStorage.setItem('toolbox_return', 'true');
-
-                // 导航栏弹性缩小
                 navBar.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-                navBar.style.transform = 'scale(0.6)';
-                navBar.style.opacity = '0.3';
-
-                // 工具网格淡出
+                navBar.style.transform = 'scale(0.4)';
+                navBar.style.opacity = '0';
                 toolsGrid.style.transition = 'all 0.3s ease';
                 toolsGrid.style.opacity = '0';
                 toolsGrid.style.transform = 'translateY(20px)';
-
-                setTimeout(() => {
+                setTimeout(function() {
                     window.location.href = '/';
                 }, 500);
             });
@@ -507,29 +515,29 @@
             // ============================================================
             // 3. 音乐控制
             // ============================================================
-            const audio = new Audio('minecraft.mp3');
+            var audio = new Audio('minecraft.mp3');
             audio.loop = true;
             audio.volume = 0.25;
-            const playPauseBtn = document.getElementById('playPauseBtn');
-            const stopBtn = document.getElementById('stopBtn');
-            const musicIcon = document.getElementById('musicIcon');
-            let isPlaying = false;
+            var playPauseBtn = document.getElementById('playPauseBtn');
+            var stopBtn = document.getElementById('stopBtn');
+            var musicIcon = document.getElementById('musicIcon');
+            var isPlaying = false;
 
             function updatePlayBtn() {
                 playPauseBtn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
-                musicIcon.style.color = isPlaying ? 'rgba(100,200,255,0.06)' : 'rgba(255,255,255,0.015)';
+                musicIcon.style.color = isPlaying ? 'rgba(100,200,255,0.08)' : 'rgba(255,255,255,0.02)';
             }
 
             function tryAutoPlay() {
-                audio.play().then(() => { isPlaying = true;
-                    updatePlayBtn(); }).catch(() => { isPlaying = false;
+                audio.play().then(function() { isPlaying = true;
+                    updatePlayBtn(); }).catch(function() { isPlaying = false;
                     updatePlayBtn(); });
             }
             playPauseBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 if (isPlaying) { audio.pause();
-                    isPlaying = false; } else { audio.play().then(() => { isPlaying = true; }).catch(() => { isPlaying =
-                        false; }); }
+                    isPlaying = false; } else { audio.play().then(function() { isPlaying = true; }).catch(function() {
+                        isPlaying = false; }); }
                 updatePlayBtn();
             });
             stopBtn.addEventListener('click', function(e) {
@@ -542,21 +550,21 @@
             window.addEventListener('load', tryAutoPlay);
             document.addEventListener('click', function() {
                 if (!isPlaying && audio.paused) {
-                    audio.play().then(() => { isPlaying = true;
-                        updatePlayBtn(); }).catch(() => {});
+                    audio.play().then(function() { isPlaying = true;
+                        updatePlayBtn(); }).catch(function() {});
                 }
             }, { once: false });
 
             // ============================================================
             // 4. B站查询
             // ============================================================
-            const biliInput = document.getElementById('biliInput');
-            const biliGoBtn = document.getElementById('biliGoBtn');
+            var biliInput = document.getElementById('biliInput');
+            var biliGoBtn = document.getElementById('biliGoBtn');
 
             function goToBilibili() {
-                const uid = biliInput.value.trim();
+                var uid = biliInput.value.trim();
                 if (uid) {
-                    window.open(`https://space.bilibili.com/${uid}`, '_blank');
+                    window.open('https://space.bilibili.com/' + uid, '_blank');
                 } else {
                     alert('请输入有效的B站UID');
                 }
@@ -572,8 +580,8 @@
             // ============================================================
             // 5. 弹幕
             // ============================================================
-            const danmakuContainer = document.getElementById('danmakuContainer');
-            const danmakuList = [
+            var danmakuContainer = document.getElementById('danmakuContainer');
+            var danmakuList = [
                 { text: '小逸罒不迷茫', color: 'color-1' },
                 { text: '创造模式', color: 'color-2' },
                 { text: '我的世界', color: 'color-3' },
@@ -592,23 +600,23 @@
             ];
 
             function createDanmaku() {
-                const el = document.createElement('div');
-                const data = danmakuList[Math.floor(Math.random() * danmakuList.length)];
-                el.className = `danmaku-item ${data.color}`;
+                var el = document.createElement('div');
+                var data = danmakuList[Math.floor(Math.random() * danmakuList.length)];
+                el.className = 'danmaku-item ' + data.color;
                 el.textContent = data.text;
                 el.style.top = (8 + Math.random() * 80) + '%';
-                el.style.fontSize = (0.5 + Math.random() * 0.35) + 'rem';
-                el.style.opacity = 0.03 + Math.random() * 0.07;
-                const duration = 14 + Math.random() * 16;
+                el.style.fontSize = (0.45 + Math.random() * 0.3) + 'rem';
+                el.style.opacity = 0.03 + Math.random() * 0.06;
+                var duration = 14 + Math.random() * 16;
                 el.style.animationDuration = duration + 's';
                 el.style.animationDelay = Math.random() * 20 + 's';
                 danmakuContainer.appendChild(el);
-                setTimeout(() => { if (el.parentNode) el.remove(); }, (duration + 20) * 1000 + 500);
+                setTimeout(function() { if (el.parentNode) el.remove(); }, (duration + 20) * 1000 + 500);
             }
-            for (let i = 0; i < 30; i++) setTimeout(createDanmaku, i * 300);
+            for (var i = 0; i < 30; i++) setTimeout(createDanmaku, i * 300);
             setInterval(createDanmaku, 1500 + Math.random() * 2500);
 
-            console.log('✨ 小逸罒不迷茫 · 工具箱 (弹性展开)');
+            console.log('✨ 小逸罒不迷茫 · 工具箱');
         })();
     </script>
 </body>
