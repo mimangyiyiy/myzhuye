@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>小逸罒不迷茫 · 个人主页</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -12,19 +12,25 @@
             box-sizing: border-box;
         }
 
+        html,
         body {
             min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        body {
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            padding: 2rem;
+            padding: 1.5rem;
             background-image: url('https://ts1.tc.mm.bing.net/th/id/R-C.341c660ea4f22a2ef253c572e3134db1?rik=qJ4Fb1M9wTq1Yw&riu=http%3a%2f%2fpic3.40017.cn%2fline%2fadmin%2f2015%2f04%2f30%2f09%2fj6XJMg.jpg&ehk=rS20cy%2bfJWZvkz%2bRySwTxuDAkpxgNsXyjvc7M069XLU%3d&risl=&pid=ImgRaw&r=0');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             position: relative;
-            overflow: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
         body::before {
             content: '';
@@ -52,6 +58,7 @@
             position: relative;
             z-index: 1;
             flex-wrap: wrap;
+            padding: 0.5rem 0;
         }
 
         /* ===== 左侧头像 ===== */
@@ -213,7 +220,7 @@
             border-color: rgba(255, 150, 100, 0.06);
         }
 
-        /* ===== 工具箱入口 (会飞的卡片) ===== */
+        /* ===== 工具箱入口 (会飞) ===== */
         .toolbox-entry {
             background: rgba(8, 12, 20, 0.45);
             backdrop-filter: blur(24px) saturate(180%);
@@ -285,44 +292,7 @@
             z-index: 1;
         }
 
-        /* ===== 飞行中的卡片克隆 ===== */
-        .flying-card {
-            position: fixed;
-            z-index: 99999;
-            pointer-events: none;
-            border-radius: 4rem;
-            background: rgba(8, 12, 20, 0.45);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0.4rem;
-            transition: none;
-            will-change: transform, opacity, width, height, top, left;
-            overflow: hidden;
-            padding: 1.5rem 2rem;
-        }
-        .flying-card i {
-            font-size: 2rem;
-            color: rgba(255, 255, 255, 0.06);
-        }
-        .flying-card .f-title {
-            font-size: 1rem;
-            font-weight: 300;
-            letter-spacing: 6px;
-            color: rgba(255, 255, 255, 0.15);
-        }
-        .flying-card .f-desc {
-            font-size: 0.4rem;
-            color: rgba(255, 255, 255, 0.04);
-            letter-spacing: 4px;
-        }
-
-        /* ===== 弹幕 ===== */
+        /* ===== 弹幕 (增强版) ===== */
         .danmaku-container {
             position: fixed;
             top: 0;
@@ -336,14 +306,14 @@
         .danmaku-item {
             position: absolute;
             white-space: nowrap;
-            padding: 0.3rem 1.2rem;
+            padding: 0.35rem 1.4rem;
             border-radius: 100px;
-            background: rgba(10, 18, 30, 0.10);
+            background: rgba(10, 18, 30, 0.12);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.01);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
-            font-size: 0.7rem;
+            border: 1px solid rgba(255, 255, 255, 0.015);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            font-size: 0.75rem;
             font-weight: 300;
             letter-spacing: 1.5px;
             text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
@@ -352,24 +322,32 @@
             user-select: none;
         }
         .danmaku-item.color-1 {
-            color: rgba(100, 200, 255, 0.10);
-            border-color: rgba(100, 200, 255, 0.015);
+            color: rgba(100, 200, 255, 0.15);
+            border-color: rgba(100, 200, 255, 0.02);
         }
         .danmaku-item.color-2 {
-            color: rgba(255, 200, 100, 0.10);
-            border-color: rgba(255, 200, 100, 0.015);
+            color: rgba(255, 200, 100, 0.15);
+            border-color: rgba(255, 200, 100, 0.02);
         }
         .danmaku-item.color-3 {
-            color: rgba(255, 100, 150, 0.10);
-            border-color: rgba(255, 100, 150, 0.015);
+            color: rgba(255, 100, 150, 0.15);
+            border-color: rgba(255, 100, 150, 0.02);
         }
         .danmaku-item.color-4 {
-            color: rgba(100, 255, 150, 0.10);
-            border-color: rgba(100, 255, 150, 0.015);
+            color: rgba(100, 255, 150, 0.15);
+            border-color: rgba(100, 255, 150, 0.02);
         }
         .danmaku-item.color-5 {
-            color: rgba(200, 150, 255, 0.10);
-            border-color: rgba(200, 150, 255, 0.015);
+            color: rgba(200, 150, 255, 0.15);
+            border-color: rgba(200, 150, 255, 0.02);
+        }
+        .danmaku-item.color-6 {
+            color: rgba(255, 150, 200, 0.15);
+            border-color: rgba(255, 150, 200, 0.02);
+        }
+        .danmaku-item.color-7 {
+            color: rgba(150, 255, 200, 0.15);
+            border-color: rgba(150, 255, 200, 0.02);
         }
         @keyframes danmakuMove {
             0% {
@@ -465,15 +443,21 @@
             }
         }
         @media (max-width: 700px) {
+            body {
+                padding: 1rem;
+                align-items: flex-start;
+                padding-top: 1.5rem;
+            }
             .main-container {
                 flex-direction: column;
                 align-items: center;
+                gap: 1.5rem;
             }
             .avatar-section {
                 flex: 0 0 auto;
                 width: 100%;
                 max-width: 360px;
-                padding: 2rem 1.5rem;
+                padding: 1.8rem 1.2rem;
                 border-radius: 3rem;
             }
             .avatar-wrapper {
@@ -513,6 +497,10 @@
             }
         }
         @media (max-width: 480px) {
+            body {
+                padding: 0.8rem;
+                padding-top: 1rem;
+            }
             .avatar-wrapper {
                 width: 100px;
                 height: 100px;
@@ -536,6 +524,16 @@
                 font-size: 0.5rem;
                 padding: 0.15rem 0.7rem;
             }
+            .music-float {
+                bottom: 12px;
+                right: 12px;
+                padding: 0.3rem 0.8rem;
+                font-size: 0.55rem;
+                gap: 0.4rem;
+            }
+            .music-float .track-name {
+                max-width: 60px;
+            }
         }
     </style>
 </head>
@@ -546,8 +544,7 @@
     <div class="main-container">
         <aside class="avatar-section">
             <div class="avatar-wrapper">
-                <img src="xiaoyiwangbumimangdechaojiwudishuandetouxiang.png" alt="avatar" id="avatarImg"
-                onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-user-astronaut fallback-icon\'></i>';">
+                <img src="xiaoyiwangbumimangdechaojiwudishuandetouxiang.png" alt="avatar" id="avatarImg" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-user-astronaut fallback-icon\'></i>';">
             </div>
             <div class="display-name">小逸罒不迷茫</div>
             <div class="name-sub">创造模式</div>
@@ -574,12 +571,11 @@
                     <span>生存</span>
                 </div>
             </div>
-            <!-- 工具箱入口 -->
-            <div class="toolbox-entry" id="toolboxEntry">
+            <a href="/tool" class="toolbox-entry" id="toolboxEntry">
                 <i class="fas fa-toolbox"></i>
                 <div class="card-title">工具箱</div>
                 <div class="card-desc">实用工具合集</div>
-            </div>
+            </a>
         </div>
     </div>
 
@@ -594,34 +590,11 @@
         (function() {
             'use strict';
 
-            // ============================================================
-            // 1. 检查是否从工具箱返回 (反向动画)
-            // ============================================================
-            const returnState = sessionStorage.getItem('toolbox_return');
-            if (returnState === 'true') {
-                sessionStorage.removeItem('toolbox_return');
-                const entry = document.getElementById('toolboxEntry');
-                entry.style.transition = 'none';
-                entry.style.transform = 'scale(0.5) translateY(-100px)';
-                entry.style.opacity = '0.3';
-                requestAnimationFrame(() => {
-                    entry.style.transition = 'all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1)';
-                    entry.style.transform = 'scale(1) translateY(0)';
-                    entry.style.opacity = '1';
-                });
-            }
-
-            // ============================================================
-            // 2. 预加载工具箱
-            // ============================================================
+            // 预加载工具箱
             function preloadToolbox() {
-                fetch('/tool')
-                    .then(res => res.text())
-                    .then(html => {
-                        sessionStorage.setItem('toolbox_html', html);
-                        console.log('✅ 工具箱已预加载');
-                    })
-                    .catch(() => {});
+                fetch('/tool').then(function(res) { return res.text(); }).then(function(html) {
+                    sessionStorage.setItem('toolbox_html', html);
+                }).catch(function() {});
             }
             if (window.requestIdleCallback) {
                 requestIdleCallback(preloadToolbox);
@@ -629,39 +602,78 @@
                 setTimeout(preloadToolbox, 300);
             }
 
-            // ============================================================
-            // 3. 飞行卡片跳转
-            // ============================================================
-            const toolboxEntry = document.getElementById('toolboxEntry');
-            let isTransitioning = false;
+            // 从工具箱返回时的回弹动画
+            var returnState = sessionStorage.getItem('toolbox_return');
+            if (returnState === 'true') {
+                sessionStorage.removeItem('toolbox_return');
+                var entry = document.getElementById('toolboxEntry');
+                entry.style.transition = 'none';
+                entry.style.transform = 'scale(0.5) translateY(-80px)';
+                entry.style.opacity = '0.3';
+                requestAnimationFrame(function() {
+                    entry.style.transition = 'all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    entry.style.transform = 'scale(1) translateY(0)';
+                    entry.style.opacity = '1';
+                });
+            }
+
+            // 飞行卡片跳转
+            var toolboxEntry = document.getElementById('toolboxEntry');
+            var isTransitioning = false;
 
             toolboxEntry.addEventListener('click', function(e) {
                 e.preventDefault();
                 if (isTransitioning) return;
                 isTransitioning = true;
 
-                const rect = this.getBoundingClientRect();
-                const targetX = window.innerWidth / 2 - 80;
-                const targetY = 12;
+                var rect = this.getBoundingClientRect();
+                var targetX = window.innerWidth / 2 - 80;
+                var targetY = 12;
 
-                const clone = document.createElement('div');
+                var clone = document.createElement('div');
                 clone.className = 'flying-card';
                 clone.innerHTML = `
                     <i class="fas fa-toolbox"></i>
                     <div class="f-title">工具箱</div>
                     <div class="f-desc">实用工具合集</div>
                 `;
+                clone.style.position = 'fixed';
+                clone.style.zIndex = '99999';
+                clone.style.pointerEvents = 'none';
+                clone.style.borderRadius = '4rem';
+                clone.style.background = 'rgba(8, 12, 20, 0.45)';
+                clone.style.backdropFilter = 'blur(24px)';
+                clone.style.webkitBackdropFilter = 'blur(24px)';
+                clone.style.border = '1px solid rgba(255, 255, 255, 0.04)';
+                clone.style.boxShadow = '0 40px 80px rgba(0, 0, 0, 0.6)';
+                clone.style.display = 'flex';
+                clone.style.flexDirection = 'column';
+                clone.style.alignItems = 'center';
+                clone.style.justifyContent = 'center';
+                clone.style.gap = '0.4rem';
+                clone.style.overflow = 'hidden';
+                clone.style.padding = '1.5rem 2rem';
                 clone.style.width = rect.width + 'px';
                 clone.style.height = rect.height + 'px';
                 clone.style.left = rect.left + 'px';
                 clone.style.top = rect.top + 'px';
-                clone.style.borderRadius = '4rem';
+                clone.style.transition = 'none';
+                clone.style.willChange = 'transform, opacity, width, height, top, left';
+                clone.querySelector('i').style.fontSize = '2rem';
+                clone.querySelector('i').style.color = 'rgba(255, 255, 255, 0.06)';
+                clone.querySelector('.f-title').style.fontSize = '1rem';
+                clone.querySelector('.f-title').style.fontWeight = '300';
+                clone.querySelector('.f-title').style.letterSpacing = '6px';
+                clone.querySelector('.f-title').style.color = 'rgba(255, 255, 255, 0.15)';
+                clone.querySelector('.f-desc').style.fontSize = '0.4rem';
+                clone.querySelector('.f-desc').style.color = 'rgba(255, 255, 255, 0.04)';
+                clone.querySelector('.f-desc').style.letterSpacing = '4px';
                 document.body.appendChild(clone);
 
                 this.style.transition = 'opacity 0.3s ease';
                 this.style.opacity = '0';
 
-                requestAnimationFrame(() => {
+                requestAnimationFrame(function() {
                     clone.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
                     clone.style.width = '160px';
                     clone.style.height = '50px';
@@ -676,14 +688,14 @@
                     clone.querySelector('.f-desc').style.display = 'none';
                 });
 
-                setTimeout(() => {
+                setTimeout(function() {
                     sessionStorage.setItem('toolbox_from_home', 'true');
                     window.location.href = '/tool';
                 }, 550);
 
-                setTimeout(() => {
+                setTimeout(function() {
                     if (isTransitioning) {
-                        const cloneStill = document.querySelector('.flying-card');
+                        var cloneStill = document.querySelector('.flying-card');
                         if (cloneStill) {
                             cloneStill.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
                             cloneStill.style.width = rect.width + 'px';
@@ -697,7 +709,7 @@
                             cloneStill.querySelector('i').style.fontSize = '2rem';
                             cloneStill.querySelector('.f-title').style.fontSize = '1rem';
                             cloneStill.querySelector('.f-desc').style.display = 'block';
-                            setTimeout(() => {
+                            setTimeout(function() {
                                 toolboxEntry.style.opacity = '1';
                                 cloneStill.remove();
                                 isTransitioning = false;
@@ -707,16 +719,14 @@
                 }, 3000);
             });
 
-            // ============================================================
-            // 4. 音乐控制
-            // ============================================================
-            const audio = new Audio('minecraft.mp3');
+            // 音乐控制
+            var audio = new Audio('minecraft.mp3');
             audio.loop = true;
             audio.volume = 0.25;
-            const playPauseBtn = document.getElementById('playPauseBtn');
-            const stopBtn = document.getElementById('stopBtn');
-            const musicIcon = document.getElementById('musicIcon');
-            let isPlaying = false;
+            var playPauseBtn = document.getElementById('playPauseBtn');
+            var stopBtn = document.getElementById('stopBtn');
+            var musicIcon = document.getElementById('musicIcon');
+            var isPlaying = false;
 
             function updatePlayBtn() {
                 playPauseBtn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
@@ -724,15 +734,15 @@
             }
 
             function tryAutoPlay() {
-                audio.play().then(() => { isPlaying = true;
-                    updatePlayBtn(); }).catch(() => { isPlaying = false;
+                audio.play().then(function() { isPlaying = true;
+                    updatePlayBtn(); }).catch(function() { isPlaying = false;
                     updatePlayBtn(); });
             }
             playPauseBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 if (isPlaying) { audio.pause();
-                    isPlaying = false; } else { audio.play().then(() => { isPlaying = true; }).catch(() => { isPlaying =
-                        false; }); }
+                    isPlaying = false; } else { audio.play().then(function() { isPlaying = true; }).catch(function() {
+                        isPlaying = false; }); }
                 updatePlayBtn();
             });
             stopBtn.addEventListener('click', function(e) {
@@ -745,65 +755,75 @@
             window.addEventListener('load', tryAutoPlay);
             document.addEventListener('click', function() {
                 if (!isPlaying && audio.paused) {
-                    audio.play().then(() => { isPlaying = true;
-                        updatePlayBtn(); }).catch(() => {});
+                    audio.play().then(function() { isPlaying = true;
+                        updatePlayBtn(); }).catch(function() {});
                 }
             }, { once: false });
 
-            // ============================================================
-            // 5. 头像备用
-            // ============================================================
-            const avatarImg = document.getElementById('avatarImg');
+            // 头像备用
+            var avatarImg = document.getElementById('avatarImg');
             if (avatarImg) {
                 avatarImg.addEventListener('error', function() {
                     this.style.display = 'none';
-                    const wrapper = this.parentElement;
+                    var wrapper = this.parentElement;
                     if (wrapper) {
                         wrapper.innerHTML = '<i class="fas fa-user-astronaut fallback-icon"></i>';
                     }
                 });
             }
 
-            // ============================================================
-            // 6. 弹幕
-            // ============================================================
-            const danmakuContainer = document.getElementById('danmakuContainer');
-            const danmakuList = [
+            // 弹幕
+            var danmakuContainer = document.getElementById('danmakuContainer');
+            var danmakuList = [
                 { text: '小逸罒不迷茫', color: 'color-1' },
                 { text: '创造模式', color: 'color-2' },
                 { text: '我的世界', color: 'color-3' },
                 { text: '建筑大师', color: 'color-4' },
                 { text: '红石科技', color: 'color-5' },
-                { text: '无限可能', color: 'color-1' },
-                { text: '探索世界', color: 'color-2' },
-                { text: '冒险精神', color: 'color-3' },
-                { text: '自由创造', color: 'color-4' },
-                { text: '方块世界', color: 'color-5' },
-                { text: '匠心筑梦', color: 'color-1' },
-                { text: '不迷茫', color: 'color-2' },
-                { text: '创造无限', color: 'color-3' },
-                { text: '玩转红石', color: 'color-4' },
-                { text: '生存挑战', color: 'color-5' }
+                { text: '无限可能', color: 'color-6' },
+                { text: '探索世界', color: 'color-7' },
+                { text: '冒险精神', color: 'color-1' },
+                { text: '自由创造', color: 'color-2' },
+                { text: '方块世界', color: 'color-3' },
+                { text: '匠心筑梦', color: 'color-4' },
+                { text: '不迷茫', color: 'color-5' },
+                { text: '创造无限', color: 'color-6' },
+                { text: '玩转红石', color: 'color-7' },
+                { text: '生存挑战', color: 'color-1' },
+                { text: '喜欢我的世界', color: 'color-2' },
+                { text: '建筑党', color: 'color-3' },
+                { text: '红石玩家', color: 'color-4' },
+                { text: '冒险家', color: 'color-5' },
+                { text: '创造者', color: 'color-6' },
+                { text: '小逸', color: 'color-7' },
+                { text: '我的世界真好玩', color: 'color-1' },
+                { text: '一起冒险吧', color: 'color-2' },
+                { text: '建造梦想', color: 'color-3' },
+                { text: '红石逻辑', color: 'color-4' },
+                { text: '生存大师', color: 'color-5' },
+                { text: '创造无限', color: 'color-6' },
+                { text: '探索未知', color: 'color-7' }
             ];
 
             function createDanmaku() {
-                const el = document.createElement('div');
-                const data = danmakuList[Math.floor(Math.random() * danmakuList.length)];
-                el.className = `danmaku-item ${data.color}`;
+                var el = document.createElement('div');
+                var data = danmakuList[Math.floor(Math.random() * danmakuList.length)];
+                el.className = 'danmaku-item ' + data.color;
                 el.textContent = data.text;
-                el.style.top = (8 + Math.random() * 80) + '%';
-                el.style.fontSize = (0.5 + Math.random() * 0.35) + 'rem';
-                el.style.opacity = 0.03 + Math.random() * 0.07;
-                const duration = 14 + Math.random() * 16;
+                el.style.top = (5 + Math.random() * 85) + '%';
+                el.style.fontSize = (0.5 + Math.random() * 0.5) + 'rem';
+                el.style.opacity = 0.03 + Math.random() * 0.10;
+                var duration = 12 + Math.random() * 18;
                 el.style.animationDuration = duration + 's';
-                el.style.animationDelay = Math.random() * 20 + 's';
+                el.style.animationDelay = Math.random() * 25 + 's';
                 danmakuContainer.appendChild(el);
-                setTimeout(() => { if (el.parentNode) el.remove(); }, (duration + 20) * 1000 + 500);
+                setTimeout(function() { if (el.parentNode) el.remove(); }, (duration + 25) * 1000 + 500);
             }
-            for (let i = 0; i < 30; i++) setTimeout(createDanmaku, i * 300);
-            setInterval(createDanmaku, 1500 + Math.random() * 2500);
 
-            console.log('✨ 小逸罒不迷茫 · 主页');
+            for (var i = 0; i < 50; i++) {
+                setTimeout(createDanmaku, i * 200);
+            }
+            setInterval(createDanmaku, 1000 + Math.random() * 2000);
         })();
     </script>
 </body>
