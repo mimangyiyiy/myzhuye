@@ -531,40 +531,52 @@
             var toolsGrid = document.getElementById('toolsGrid');
             var toolCards = document.querySelectorAll('.tool-card');
 
-            var fromHome = sessionStorage.getItem('toolbox_from_home');
+            // 无论是否从主页跳转，都执行动画
+            // 先重置所有元素到初始状态
+            navBar.style.transition = 'none';
+            navBar.style.transform = 'scale(0.3) translateY(-30px)';
+            navBar.style.opacity = '0';
+            navBar.classList.remove('expanded');
 
-            if (fromHome === 'true') {
-                sessionStorage.removeItem('toolbox_from_home');
+            toolsGrid.style.transition = 'none';
+            toolsGrid.style.opacity = '0';
+            toolsGrid.classList.remove('visible');
 
-                // 从主页跳转：有弹入动画
-                // 先确保导航栏处于初始隐藏状态
-                navBar.style.transform = 'scale(0.3) translateY(-30px)';
-                navBar.style.opacity = '0';
-                // 强制添加 expanded 类 (动画结束后会变成 scale(1) opacity:1)
-                // 但 transition 会处理从当前状态到 expanded 状态的过渡
-                requestAnimationFrame(function() {
-                    navBar.classList.add('expanded');
-                });
+            toolCards.forEach(function(card) {
+                card.style.transition = 'none';
+                card.style.transform = 'scale(0.3) translateY(-50px)';
+                card.style.opacity = '0';
+                card.classList.remove('pop-in');
+            });
 
-                // 卡片延迟弹入
-                setTimeout(function() {
-                    toolsGrid.classList.add('visible');
-                    toolCards.forEach(function(card, index) {
-                        var delay = parseFloat(card.getAttribute('data-delay')) || 0.1 + index * 0.1;
-                        setTimeout(function() {
-                            card.classList.add('pop-in');
-                        }, delay * 1000);
-                    });
-                }, 650);
+            // 强制回流后启动动画
+            void document.body.offsetHeight;
 
-            } else {
-                // 直接访问：无动画，直接显示
+            // 恢复过渡
+            navBar.style.transition = '';
+            toolsGrid.style.transition = '';
+            toolCards.forEach(function(card) {
+                card.style.transition = '';
+            });
+
+            // 启动动画：导航栏先弹入
+            requestAnimationFrame(function() {
                 navBar.classList.add('expanded');
+            });
+
+            // 导航栏展开后，卡片依次弹入
+            setTimeout(function() {
                 toolsGrid.classList.add('visible');
-                toolCards.forEach(function(card) {
-                    card.classList.add('pop-in');
+                toolCards.forEach(function(card, index) {
+                    var delay = parseFloat(card.getAttribute('data-delay')) || 0.1 + index * 0.1;
+                    setTimeout(function() {
+                        card.classList.add('pop-in');
+                    }, delay * 1000);
                 });
-            }
+            }, 650);
+
+            // 清理 sessionStorage 标记（如果有）
+            sessionStorage.removeItem('toolbox_from_home');
 
             // 返回主页
             document.getElementById('backBtn').addEventListener('click', function(e) {
