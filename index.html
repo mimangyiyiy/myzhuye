@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小逸罒不迷茫 · 个人主页</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            padding: 2rem;
+            background-image: url('https://ts1.tc.mm.bing.net/th/id/R-C.341c660ea4f22a2ef253c572e3134db1?rik=qJ4Fb1M9wTq1Yw&riu=http%3a%2f%2fpic3.40017.cn%2fline%2fadmin%2f2015%2f04%2f30%2f09%2fj6XJMg.jpg&ehk=rS20cy%2bfJWZvkz%2bRySwTxuDAkpxgNsXyjvc7M069XLU%3d&risl=&pid=ImgRaw&r=0');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            overflow: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 15% 25%, rgba(255, 100, 150, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 85% 75%, rgba(50, 150, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 200, 50, 0.08) 0%, transparent 60%),
+                rgba(0, 0, 0, 0.40);
+            backdrop-filter: blur(8px);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .main-container {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            gap: 3.5rem;
+            align-items: stretch;
+            position: relative;
+            z-index: 1;
+            flex-wrap: wrap;
+        }
+        .avatar-section {
+            flex: 0 0 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            background: rgba(8, 12, 20, 0.30);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            padding: 3rem 2rem;
+            border-radius: 4.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .avatar-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(ellipse at 20% 30%, rgba(255, 100, 150, 0.06) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 70%, rgba(50, 150, 255, 0.06) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 200, 50, 0.04) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .avatar-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(45deg,
+                    transparent,
+                    transparent 40px,
+                    rgba(255, 255, 255, 0.003) 40px,
+                    rgba(255, 255, 255, 0.003) 41px);
+            pointer-events: none;
+            border-radius: 4.5rem;
+        }
+        .avatar-wrapper {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.03);
+            flex-shrink: 0;
+            background: #1a2633;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+        .avatar-wrapper:hover {
+            transform: scale(1.03) rotate(-3deg);
+        }
+        .avatar-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .avatar-wrapper .fallback-icon {
+            font-size: 5rem;
+            color: rgba(255, 255, 255, 0.04);
+        }
+        .display-name {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, #f0f6ff 0%, #8ab4d8 40%, #f0a0b0 70%, #ffd070 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            position: relative;
+            z-index: 2;
+        }
+        .name-sub {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.10);
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            margin-top: -0.4rem;
+            position: relative;
+            z-index: 2;
+        }
+        .qq-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 0.8rem;
+            padding: 0.5rem 1.8rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.12);
+            letter-spacing: 3px;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(4px);
+        }
+        .qq-info i {
+            color: rgba(255, 255, 255, 0.04);
+            font-size: 1rem;
+        }
+        .qq-info .qq-num {
+            color: rgba(255, 255, 255, 0.30);
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .content-section {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .bio-card {
+            background: rgba(8, 12, 20, 0.30);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            padding: 2.2rem 2.5rem;
+            border-radius: 3.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        .bio-card::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -20%;
+            width: 70%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse, rgba(255, 100, 150, 0.05) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(50, 200, 255, 0.04) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .bio-card p {
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.45);
+            letter-spacing: 2px;
+            line-height: 1.9;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+        .bio-card p i {
+            margin: 0 8px;
+            font-size: 1.1rem;
+        }
+        .bio-card p .icon-cube {
+            color: rgba(100, 200, 255, 0.12);
+        }
+        .bio-card p .icon-heart {
+            color: rgba(255, 100, 150, 0.12);
+        }
+        .bio-card .bio-tags {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.2rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        .bio-card .bio-tags span {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.06);
+            letter-spacing: 4px;
+            padding: 0.3rem 1.4rem;
+            background: rgba(255, 255, 255, 0.01);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            transition: 0.3s;
+        }
+        .bio-card .bio-tags span:nth-child(1) {
+            color: rgba(100, 200, 255, 0.15);
+            border-color: rgba(100, 200, 255, 0.04);
+        }
+        .bio-card .bio-tags span:nth-child(2) {
+            color: rgba(255, 200, 100, 0.15);
+            border-color: rgba(255, 200, 100, 0.04);
+        }
+        .bio-card .bio-tags span:nth-child(3) {
+            color: rgba(100, 255, 150, 0.15);
+            border-color: rgba(100, 255, 150, 0.04);
+        }
+        .bio-card .bio-tags span:nth-child(4) {
+            color: rgba(255, 150, 100, 0.15);
+            border-color: rgba(255, 150, 100, 0.04);
+        }
+        .toolbox-entry {
+            background: rgba(8, 12, 20, 0.35);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 4rem;
+            padding: 2.8rem 2.5rem;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+        }
+        .toolbox-entry::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            left: -40%;
+            width: 180%;
+            height: 180%;
+            background:
+                radial-gradient(ellipse at 30% 40%, rgba(255, 100, 150, 0.04) 0%, transparent 40%),
+                radial-gradient(ellipse at 70% 60%, rgba(50, 150, 255, 0.04) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 200, 50, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .toolbox-entry::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(45deg,
+                    transparent,
+                    transparent 50px,
+                    rgba(255, 255, 255, 0.002) 50px,
+                    rgba(255, 255, 255, 0.002) 51px);
+            pointer-events: none;
+            border-radius: 4rem;
+        }
+        .toolbox-entry:hover {
+            background: rgba(20, 30, 50, 0.40);
+            border-color: rgba(255, 255, 255, 0.04);
+            transform: translateY(-6px);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+        }
+        .toolbox-entry i {
+            font-size: 3.6rem;
+            color: rgba(255, 255, 255, 0.04);
+            transition: 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+        .toolbox-entry:hover i {
+            color: rgba(255, 200, 100, 0.08);
+        }
+        .toolbox-entry .card-title {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 8px;
+            color: rgba(255, 255, 255, 0.12);
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 200, 100, 0.10));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .toolbox-entry .card-desc {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.03);
+            letter-spacing: 5px;
+            position: relative;
+            z-index: 1;
+        }
+        .danmaku-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+        .danmaku-item {
+            position: absolute;
+            white-space: nowrap;
+            padding: 0.3rem 1.2rem;
+            border-radius: 100px;
+            background: rgba(10, 18, 30, 0.12);
+            backdrop-filter: blur(12px) saturate(150%);
+            -webkit-backdrop-filter: blur(12px) saturate(150%);
+            border: 1px solid rgba(255, 255, 255, 0.015);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            font-size: 0.7rem;
+            font-weight: 300;
+            letter-spacing: 1.5px;
+            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+            animation: danmakuMove linear infinite;
+            will-change: transform;
+            user-select: none;
+        }
+        .danmaku-item.color-1 {
+            color: rgba(100, 200, 255, 0.12);
+            border-color: rgba(100, 200, 255, 0.02);
+        }
+        .danmaku-item.color-2 {
+            color: rgba(255, 200, 100, 0.12);
+            border-color: rgba(255, 200, 100, 0.02);
+        }
+        .danmaku-item.color-3 {
+            color: rgba(255, 100, 150, 0.12);
+            border-color: rgba(255, 100, 150, 0.02);
+        }
+        .danmaku-item.color-4 {
+            color: rgba(100, 255, 150, 0.12);
+            border-color: rgba(100, 255, 150, 0.02);
+        }
+        .danmaku-item.color-5 {
+            color: rgba(200, 150, 255, 0.12);
+            border-color: rgba(200, 150, 255, 0.02);
+        }
+        @keyframes danmakuMove {
+            0% {
+                transform: translateX(100vw) scale(0.9);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+                transform: translateX(100vw) scale(1);
+            }
+            90% {
+                opacity: 1;
+                transform: translateX(-200px) scale(1);
+            }
+            100% {
+                transform: translateX(-300px) scale(0.9);
+                opacity: 0;
+            }
+        }
+        .music-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9998;
+            background: rgba(8, 12, 20, 0.30);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-radius: 4rem;
+            padding: 0.6rem 1.6rem 0.6rem 1.4rem;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: rgba(255, 255, 255, 0.08);
+            font-size: 0.75rem;
+            pointer-events: auto;
+        }
+        .music-float i {
+            font-size: 1.1rem;
+            color: rgba(255, 200, 100, 0.04);
+        }
+        .music-float .ctrl-btn {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.01);
+            color: rgba(255, 255, 255, 0.05);
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: 0.2s;
+        }
+        .music-float .ctrl-btn:hover {
+            background: rgba(255, 200, 100, 0.02);
+            color: rgba(255, 200, 100, 0.08);
+        }
+        .music-float .track-name {
+            max-width: 120px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: rgba(255, 255, 255, 0.03);
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+        }
+        @media (max-width: 900px) {
+            .main-container {
+                gap: 2rem;
+            }
+            .avatar-section {
+                flex: 0 0 240px;
+                padding: 2rem 1.5rem;
+            }
+            .avatar-wrapper {
+                width: 140px;
+                height: 140px;
+            }
+            .display-name {
+                font-size: 1.6rem;
+            }
+            .bio-card p {
+                font-size: 1.1rem;
+            }
+            .toolbox-entry {
+                padding: 2rem 1.8rem;
+            }
+            .toolbox-entry .card-title {
+                font-size: 1.6rem;
+            }
+        }
+        @media (max-width: 700px) {
+            .main-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .avatar-section {
+                flex: 0 0 auto;
+                width: 100%;
+                max-width: 360px;
+                padding: 2rem 1.5rem;
+                border-radius: 3rem;
+            }
+            .avatar-wrapper {
+                width: 120px;
+                height: 120px;
+            }
+            .display-name {
+                font-size: 1.4rem;
+            }
+            .bio-card {
+                padding: 1.5rem 1.8rem;
+            }
+            .bio-card p {
+                font-size: 1rem;
+            }
+            .toolbox-entry {
+                padding: 1.8rem 1.5rem;
+                border-radius: 3rem;
+            }
+            .toolbox-entry .card-title {
+                font-size: 1.4rem;
+                letter-spacing: 4px;
+            }
+            .toolbox-entry i {
+                font-size: 2.8rem;
+            }
+            .danmaku-item {
+                font-size: 0.6rem;
+                padding: 0.2rem 0.9rem;
+            }
+            .music-float {
+                bottom: 16px;
+                right: 16px;
+                padding: 0.4rem 1.2rem;
+                font-size: 0.65rem;
+                gap: 0.6rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .avatar-wrapper {
+                width: 100px;
+                height: 100px;
+            }
+            .display-name {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+            .qq-info {
+                font-size: 0.7rem;
+                padding: 0.3rem 1.2rem;
+            }
+            .bio-card p {
+                font-size: 0.9rem;
+            }
+            .bio-card .bio-tags span {
+                font-size: 0.6rem;
+                letter-spacing: 2px;
+            }
+            .danmaku-item {
+                font-size: 0.5rem;
+                padding: 0.15rem 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="danmaku-container" id="danmakuContainer"></div>
+
+    <div class="main-container">
+        <aside class="avatar-section">
+            <div class="avatar-wrapper">
+                <img src="xiaoyiwangbumimangdechaojiwudishuandetouxiang.png" alt="avatar" id="avatarImg"
+                onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-user-astronaut fallback-icon\'></i>';">
+            </div>
+            <div class="display-name">小逸罒不迷茫</div>
+            <div class="name-sub">创造模式</div>
+            <div class="qq-info">
+                <i class="fab fa-qq"></i>
+                <span class="qq-num">368750642</span>
+            </div>
+        </aside>
+        <div class="content-section">
+            <div class="bio-card">
+                <p>
+                    <i class="fas fa-cube icon-cube"></i>
+                    我喜欢玩我的世界
+                    <i class="fas fa-heart icon-heart"></i>
+                    <br>
+                    <span style="font-size:0.8rem; color:rgba(255,255,255,0.06); letter-spacing:5px;">
+                        ︎创造模式 · 无限可能
+                    </span>
+                </p>
+                <div class="bio-tags">
+                    <span>建筑</span>
+                    <span>红石</span>
+                    <span>冒险</span>
+                    <span>生存</span>
+                </div>
+            </div>
+            <a href="/tool" class="toolbox-entry">
+                <i class="fas fa-toolbox"></i>
+                <div class="card-title">工具箱</div>
+                <div class="card-desc">点击进入 · 实用工具合集</div>
+            </a>
+        </div>
+    </div>
+
+    <div class="music-float" id="musicFloat">
+        <i class="fas fa-music" id="musicIcon"></i>
+        <span class="track-name" id="trackName">minecraft.mp3</span>
+        <button class="ctrl-btn" id="playPauseBtn"><i class="fas fa-play"></i></button>
+        <button class="ctrl-btn" id="stopBtn"><i class="fas fa-stop"></i></button>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            // 1. 音乐控制
+            // ============================================================
+            const audio = new Audio('minecraft.mp3');
+            audio.loop = true;
+            audio.volume = 0.25;
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            const musicIcon = document.getElementById('musicIcon');
+            let isPlaying = false;
+
+            function updatePlayBtn() {
+                playPauseBtn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+                musicIcon.style.color = isPlaying ? 'rgba(100,200,255,0.08)' : 'rgba(255,255,255,0.02)';
+            }
+
+            function tryAutoPlay() {
+                audio.play().then(() => { isPlaying = true;
+                    updatePlayBtn(); }).catch(() => { isPlaying = false;
+                    updatePlayBtn(); });
+            }
+            playPauseBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (isPlaying) { audio.pause();
+                    isPlaying = false; } else { audio.play().then(() => { isPlaying = true; }).catch(() => { isPlaying =
+                        false; }); }
+                updatePlayBtn();
+            });
+            stopBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                audio.pause();
+                audio.currentTime = 0;
+                isPlaying = false;
+                updatePlayBtn();
+            });
+            window.addEventListener('load', tryAutoPlay);
+            document.addEventListener('click', function() {
+                if (!isPlaying && audio.paused) {
+                    audio.play().then(() => { isPlaying = true;
+                        updatePlayBtn(); }).catch(() => {});
+                }
+            }, { once: false });
+
+            // ============================================================
+            // 2. 头像备用
+            // ============================================================
+            const avatarImg = document.getElementById('avatarImg');
+            if (avatarImg) {
+                avatarImg.addEventListener('error', function() {
+                    this.style.display = 'none';
+                    const wrapper = this.parentElement;
+                    if (wrapper) {
+                        wrapper.innerHTML = '<i class="fas fa-user-astronaut fallback-icon"></i>';
+                    }
+                });
+            }
+
+            // ============================================================
+            // 3. 弹幕
+            // ============================================================
+            const danmakuContainer = document.getElementById('danmakuContainer');
+            const danmakuList = [
+                { text: '小逸罒不迷茫', color: 'color-1' },
+                { text: '创造模式', color: 'color-2' },
+                { text: '我的世界', color: 'color-3' },
+                { text: '建筑大师', color: 'color-4' },
+                { text: '红石科技', color: 'color-5' },
+                { text: '无限可能', color: 'color-1' },
+                { text: '探索世界', color: 'color-2' },
+                { text: '冒险精神', color: 'color-3' },
+                { text: '自由创造', color: 'color-4' },
+                { text: '方块世界', color: 'color-5' },
+                { text: '匠心筑梦', color: 'color-1' },
+                { text: '不迷茫', color: 'color-2' },
+                { text: '创造无限', color: 'color-3' },
+                { text: '玩转红石', color: 'color-4' },
+                { text: '生存挑战', color: 'color-5' }
+            ];
+
+            function createDanmaku() {
+                const el = document.createElement('div');
+                const data = danmakuList[Math.floor(Math.random() * danmakuList.length)];
+                el.className = `danmaku-item ${data.color}`;
+                el.textContent = data.text;
+                el.style.top = (8 + Math.random() * 80) + '%';
+                el.style.fontSize = (0.55 + Math.random() * 0.35) + 'rem';
+                el.style.opacity = 0.04 + Math.random() * 0.08;
+                const duration = 14 + Math.random() * 16;
+                el.style.animationDuration = duration + 's';
+                el.style.animationDelay = Math.random() * 20 + 's';
+                danmakuContainer.appendChild(el);
+                setTimeout(() => { if (el.parentNode) el.remove(); }, (duration + 20) * 1000 + 500);
+            }
+            for (let i = 0; i < 30; i++) setTimeout(createDanmaku, i * 300);
+            setInterval(createDanmaku, 1500 + Math.random() * 2500);
+
+            console.log('✨ 小逸罒不迷茫 · 个人主页');
+        })();
+    </script>
+</body>
+</html>
