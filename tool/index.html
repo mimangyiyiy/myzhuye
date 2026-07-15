@@ -527,30 +527,19 @@
         (function() {
             'use strict';
 
-            // ===== 完全关闭主页数据接收 =====
-            // 不再读取任何 sessionStorage 标记
-            // 所有动画在页面加载时独立执行
-
             var navBar = document.getElementById('navBar');
             var toolsGrid = document.getElementById('toolsGrid');
             var toolCards = document.querySelectorAll('.tool-card');
 
-            // 清除可能残留的主页标记
-            sessionStorage.removeItem('toolbox_from_home');
-            sessionStorage.removeItem('toolbox_return');
-
-            // 重置所有元素到初始隐藏状态
-            navBar.style.transition = 'none';
+            // 重置到初始状态
             navBar.style.transform = 'scale(0.3) translateY(-30px)';
             navBar.style.opacity = '0';
             navBar.classList.remove('expanded');
 
-            toolsGrid.style.transition = 'none';
             toolsGrid.style.opacity = '0';
             toolsGrid.classList.remove('visible');
 
             toolCards.forEach(function(card) {
-                card.style.transition = 'none';
                 card.style.transform = 'scale(0.3) translateY(-50px)';
                 card.style.opacity = '0';
                 card.classList.remove('pop-in');
@@ -558,13 +547,6 @@
 
             // 强制回流
             void document.body.offsetHeight;
-
-            // 恢复过渡
-            navBar.style.transition = '';
-            toolsGrid.style.transition = '';
-            toolCards.forEach(function(card) {
-                card.style.transition = '';
-            });
 
             // 启动动画
             requestAnimationFrame(function() {
