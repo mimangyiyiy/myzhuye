@@ -66,14 +66,15 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             min-height: 60px;
-            transform: scale(0.5);
+            /* 初始：从卡片位置开始 */
+            transform: scale(0.4) translateY(0);
             opacity: 0;
             transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             transform-origin: top center;
             will-change: transform, opacity;
         }
         .nav-bar.expanded {
-            transform: scale(1);
+            transform: scale(1) translateY(0);
             opacity: 1;
         }
 
@@ -124,11 +125,6 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.8rem;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .tools-grid.visible {
-            opacity: 1;
         }
 
         /* ===== 每个工具卡片 ===== */
@@ -151,8 +147,8 @@
             cursor: pointer;
             min-height: 200px;
             justify-content: center;
-            /* 初始状态：从导航栏位置弹出 */
-            transform: scale(0.3) translateY(-60px);
+            /* 初始：从卡片位置弹出 */
+            transform: scale(0.3) translateY(-80px);
             opacity: 0;
             transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
@@ -501,45 +497,49 @@
             'use strict';
 
             // ============================================================
-            // 1. 导航栏 + 卡片 弹性展开动画
+            // 1. 拆分弹入动画：导航栏 + 3个卡片从同一位置弹入
             // ============================================================
             var navBar = document.getElementById('navBar');
-            var toolsGrid = document.getElementById('toolsGrid');
             var toolCards = document.querySelectorAll('.tool-card');
 
             var fromHome = sessionStorage.getItem('toolbox_from_home');
             if (fromHome === 'true') {
                 sessionStorage.removeItem('toolbox_from_home');
 
-                // 导航栏：从卡片大小弹开
-                navBar.style.transform = 'scale(0.4)';
+                // 所有元素从卡片位置开始 (scale 0.4, 向上偏移)
+                navBar.style.transform = 'scale(0.4) translateY(0)';
                 navBar.style.opacity = '0';
+
+                toolCards.forEach(function(card) {
+                    card.style.transform = 'scale(0.3) translateY(-80px)';
+                    card.style.opacity = '0';
+                });
+
+                // 导航栏先弹入 (0.6s)
                 requestAnimationFrame(function() {
                     navBar.classList.add('expanded');
                 });
 
-                // 工具卡片：从导航栏位置弹出
+                // 卡片依次弹入
                 setTimeout(function() {
-                    toolsGrid.classList.add('visible');
                     toolCards.forEach(function(card, index) {
                         var delay = parseFloat(card.getAttribute('data-delay')) || 0.1 + index * 0.1;
                         setTimeout(function() {
                             card.classList.add('pop-in');
                         }, delay * 1000);
                     });
-                }, 350);
+                }, 200);
 
             } else {
                 // 直接访问：正常显示
                 navBar.classList.add('expanded');
-                toolsGrid.classList.add('visible');
                 toolCards.forEach(function(card) {
                     card.classList.add('pop-in');
                 });
             }
 
             // ============================================================
-            // 2. 返回主页 (反向动画)
+            // 2. 返回主页 (反向拆分收缩)
             // ============================================================
             document.getElementById('backBtn').addEventListener('click', function(e) {
                 e.preventDefault();
@@ -549,7 +549,7 @@
                 toolCards.forEach(function(card, index) {
                     setTimeout(function() {
                         card.style.transition = 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
-                        card.style.transform = 'scale(0.3) translateY(-60px)';
+                        card.style.transform = 'scale(0.3) translateY(-80px)';
                         card.style.opacity = '0';
                     }, index * 60);
                 });
@@ -557,7 +557,7 @@
                 // 导航栏缩小
                 setTimeout(function() {
                     navBar.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-                    navBar.style.transform = 'scale(0.4)';
+                    navBar.style.transform = 'scale(0.4) translateY(0)';
                     navBar.style.opacity = '0';
                 }, 200);
 
@@ -670,7 +670,7 @@
             for (var i = 0; i < 30; i++) setTimeout(createDanmaku, i * 300);
             setInterval(createDanmaku, 1500 + Math.random() * 2500);
 
-            console.log('✨ 小逸罒不迷茫 · 工具箱 (文字可读版)');
+            console.log('✨ 小逸罒不迷茫 · 工具箱 (拆分弹入)');
         })();
     </script>
 </body>
