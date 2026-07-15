@@ -527,12 +527,19 @@
         (function() {
             'use strict';
 
+            // ===== 完全关闭主页数据接收 =====
+            // 不再读取任何 sessionStorage 标记
+            // 所有动画在页面加载时独立执行
+
             var navBar = document.getElementById('navBar');
             var toolsGrid = document.getElementById('toolsGrid');
             var toolCards = document.querySelectorAll('.tool-card');
 
-            // 无论是否从主页跳转，都执行动画
-            // 先重置所有元素到初始状态
+            // 清除可能残留的主页标记
+            sessionStorage.removeItem('toolbox_from_home');
+            sessionStorage.removeItem('toolbox_return');
+
+            // 重置所有元素到初始隐藏状态
             navBar.style.transition = 'none';
             navBar.style.transform = 'scale(0.3) translateY(-30px)';
             navBar.style.opacity = '0';
@@ -549,7 +556,7 @@
                 card.classList.remove('pop-in');
             });
 
-            // 强制回流后启动动画
+            // 强制回流
             void document.body.offsetHeight;
 
             // 恢复过渡
@@ -559,12 +566,11 @@
                 card.style.transition = '';
             });
 
-            // 启动动画：导航栏先弹入
+            // 启动动画
             requestAnimationFrame(function() {
                 navBar.classList.add('expanded');
             });
 
-            // 导航栏展开后，卡片依次弹入
             setTimeout(function() {
                 toolsGrid.classList.add('visible');
                 toolCards.forEach(function(card, index) {
@@ -575,31 +581,10 @@
                 });
             }, 650);
 
-            // 清理 sessionStorage 标记（如果有）
-            sessionStorage.removeItem('toolbox_from_home');
-
             // 返回主页
             document.getElementById('backBtn').addEventListener('click', function(e) {
                 e.preventDefault();
-                sessionStorage.setItem('toolbox_return', 'true');
-
-                toolCards.forEach(function(card, index) {
-                    setTimeout(function() {
-                        card.style.transition = 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
-                        card.style.transform = 'scale(0.3) translateY(-50px)';
-                        card.style.opacity = '0';
-                    }, index * 60);
-                });
-
-                setTimeout(function() {
-                    navBar.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-                    navBar.style.transform = 'scale(0.3) translateY(-30px)';
-                    navBar.style.opacity = '0';
-                }, 250);
-
-                setTimeout(function() {
-                    window.location.href = '/';
-                }, 750);
+                window.location.href = '/';
             });
 
             // 音乐控制
