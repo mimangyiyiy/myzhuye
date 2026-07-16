@@ -11,13 +11,11 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         html,
         body {
             min-height: 100vh;
             min-height: 100dvh;
         }
-
         body {
             display: flex;
             align-items: center;
@@ -48,7 +46,6 @@
             z-index: 0;
             pointer-events: none;
         }
-
         .main-container {
             max-width: 1200px;
             width: 100%;
@@ -60,8 +57,6 @@
             flex-wrap: wrap;
             padding: 0.5rem 0;
         }
-
-        /* ===== 左侧头像 ===== */
         .avatar-section {
             flex: 0 0 280px;
             display: flex;
@@ -146,8 +141,6 @@
             font-family: 'Courier New', monospace;
             letter-spacing: 4px;
         }
-
-        /* ===== 右侧内容 ===== */
         .content-section {
             flex: 1;
             min-width: 280px;
@@ -166,30 +159,92 @@
             position: relative;
             overflow: hidden;
         }
+        .bio-card::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -20%;
+            width: 70%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse, rgba(255, 100, 150, 0.05) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(50, 200, 255, 0.04) 0%, transparent 50%);
+            pointer-events: none;
+        }
         .bio-card p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 400;
-            color: rgba(255, 255, 255, 0.65);
-            letter-spacing: 2px;
-            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.60);
+            letter-spacing: 1.5px;
+            line-height: 2;
             text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
             position: relative;
             z-index: 1;
         }
         .bio-card p i {
-            margin: 0 6px;
-            font-size: 1rem;
+            margin: 0 4px;
+            font-size: 0.95rem;
         }
         .bio-card p .icon-cube {
-            color: rgba(100, 200, 255, 0.25);
+            color: rgba(100, 200, 255, 0.20);
         }
         .bio-card p .icon-heart {
-            color: rgba(255, 100, 150, 0.25);
+            color: rgba(255, 100, 150, 0.20);
+        }
+        .bio-card p .icon-code {
+            color: rgba(255, 200, 100, 0.20);
+        }
+        .bio-card p .icon-cubes {
+            color: rgba(100, 255, 150, 0.20);
+        }
+        .bio-card p .icon-pickaxe {
+            color: rgba(255, 150, 100, 0.20);
+        }
+        .bio-card p .icon-star {
+            color: rgba(255, 200, 50, 0.15);
+        }
+        .bio-card .bio-detail {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.30);
+            letter-spacing: 0.5px;
+            line-height: 1.9;
+            margin-top: 0.5rem;
+            padding: 0.8rem 1.2rem;
+            background: rgba(255, 255, 255, 0.01);
+            border-radius: 2rem;
+            border-left: 2px solid rgba(255, 255, 255, 0.03);
+        }
+        .bio-card .bio-detail span {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 0.1rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.15);
+            margin: 0.1rem 0.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.01);
+        }
+        .bio-card .bio-detail .highlight-blue {
+            color: rgba(100, 200, 255, 0.25);
+            border-color: rgba(100, 200, 255, 0.03);
+        }
+        .bio-card .bio-detail .highlight-gold {
+            color: rgba(255, 200, 100, 0.25);
+            border-color: rgba(255, 200, 100, 0.03);
+        }
+        .bio-card .bio-detail .highlight-green {
+            color: rgba(100, 255, 150, 0.25);
+            border-color: rgba(100, 255, 150, 0.03);
+        }
+        .bio-card .bio-detail .highlight-red {
+            color: rgba(255, 150, 100, 0.25);
+            border-color: rgba(255, 150, 100, 0.03);
         }
         .bio-card .bio-tags {
             display: flex;
             gap: 0.8rem;
-            margin-top: 1rem;
+            margin-top: 1.2rem;
             flex-wrap: wrap;
             position: relative;
             z-index: 1;
@@ -219,8 +274,10 @@
             color: rgba(255, 150, 100, 0.40);
             border-color: rgba(255, 150, 100, 0.06);
         }
-
-        /* ===== 工具箱入口 (会飞) ===== */
+        .bio-card .bio-tags span:nth-child(5) {
+            color: rgba(200, 150, 255, 0.40);
+            border-color: rgba(200, 150, 255, 0.06);
+        }
         .toolbox-entry {
             background: rgba(8, 12, 20, 0.45);
             backdrop-filter: blur(24px) saturate(180%);
@@ -291,8 +348,6 @@
             position: relative;
             z-index: 1;
         }
-
-        /* ===== 弹幕 (增强版) ===== */
         .danmaku-container {
             position: fixed;
             top: 0;
@@ -367,8 +422,6 @@
                 opacity: 0;
             }
         }
-
-        /* ===== 音乐悬浮窗 ===== */
         .music-float {
             position: fixed;
             bottom: 30px;
@@ -415,8 +468,6 @@
             font-size: 0.6rem;
             letter-spacing: 1px;
         }
-
-        /* ===== 响应式 ===== */
         @media (max-width: 900px) {
             .main-container {
                 gap: 2rem;
@@ -433,7 +484,7 @@
                 font-size: 1.6rem;
             }
             .bio-card p {
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
             .toolbox-entry {
                 padding: 2rem 1.8rem;
@@ -471,7 +522,11 @@
                 padding: 1.5rem 1.8rem;
             }
             .bio-card p {
-                font-size: 1rem;
+                font-size: 0.95rem;
+            }
+            .bio-card .bio-detail {
+                font-size: 0.75rem;
+                padding: 0.6rem 1rem;
             }
             .toolbox-entry {
                 padding: 1.8rem 1.5rem;
@@ -514,7 +569,11 @@
                 padding: 0.3rem 1.2rem;
             }
             .bio-card p {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
+            }
+            .bio-card .bio-detail {
+                font-size: 0.65rem;
+                padding: 0.4rem 0.8rem;
             }
             .bio-card .bio-tags span {
                 font-size: 0.6rem;
@@ -538,9 +597,7 @@
     </style>
 </head>
 <body>
-
     <div class="danmaku-container" id="danmakuContainer"></div>
-
     <div class="main-container">
         <aside class="avatar-section">
             <div class="avatar-wrapper">
@@ -564,11 +621,45 @@
                         ︎创造模式 · 无限可能
                     </span>
                 </p>
+                <div class="bio-detail">
+                    <i class="fas fa-terminal" style="color:rgba(255,255,255,0.06); margin-right:6px;"></i>
+                    我常用指令来
+                    <span class="highlight-blue">/give</span>
+                    获取建筑方块，
+                    <span class="highlight-gold">/fill</span>
+                    快速填充地形，
+                    <span class="highlight-green">/clone</span>
+                    复制建筑结构，
+                    <span class="highlight-red">/summon</span>
+                    召唤生物和坐骑。
+                    <br>
+                    <i class="fas fa-code icon-code" style="margin-right:4px;"></i>
+                    红石机械用
+                    <span class="highlight-blue">/setblock</span>
+                    和
+                    <span class="highlight-gold">/testforblock</span>
+                    调试，
+                    <span class="highlight-green">/scoreboard</span>
+                    做计分板系统，
+                    <span class="highlight-red">/effect</span>
+                    给玩家加状态效果。
+                    <br>
+                    <i class="fas fa-pickaxe icon-pickaxe" style="margin-right:4px;"></i>
+                    生存模式用
+                    <span class="highlight-blue">/enchant</span>
+                    附魔装备，
+                    <span class="highlight-gold">/repair</span>
+                    修复耐久，
+                    <span class="highlight-green">/trade</span>
+                    刷村民交易。
+                    <i class="fas fa-star icon-star" style="margin-left:6px;"></i>
+                </div>
                 <div class="bio-tags">
                     <span>建筑</span>
                     <span>红石</span>
                     <span>冒险</span>
                     <span>生存</span>
+                    <span>指令</span>
                 </div>
             </div>
             <a href="/tool" class="toolbox-entry" id="toolboxEntry">
@@ -578,19 +669,15 @@
             </a>
         </div>
     </div>
-
     <div class="music-float" id="musicFloat">
         <i class="fas fa-music" id="musicIcon"></i>
         <span class="track-name" id="trackName">minecraft.mp3</span>
         <button class="ctrl-btn" id="playPauseBtn"><i class="fas fa-play"></i></button>
         <button class="ctrl-btn" id="stopBtn"><i class="fas fa-stop"></i></button>
     </div>
-
     <script>
         (function() {
             'use strict';
-
-            // 预加载工具箱
             function preloadToolbox() {
                 fetch('/tool').then(function(res) { return res.text(); }).then(function(html) {
                     sessionStorage.setItem('toolbox_html', html);
@@ -601,8 +688,6 @@
             } else {
                 setTimeout(preloadToolbox, 300);
             }
-
-            // 从工具箱返回时的回弹动画
             var returnState = sessionStorage.getItem('toolbox_return');
             if (returnState === 'true') {
                 sessionStorage.removeItem('toolbox_return');
@@ -616,20 +701,15 @@
                     entry.style.opacity = '1';
                 });
             }
-
-            // 飞行卡片跳转
             var toolboxEntry = document.getElementById('toolboxEntry');
             var isTransitioning = false;
-
             toolboxEntry.addEventListener('click', function(e) {
                 e.preventDefault();
                 if (isTransitioning) return;
                 isTransitioning = true;
-
                 var rect = this.getBoundingClientRect();
                 var targetX = window.innerWidth / 2 - 80;
                 var targetY = 12;
-
                 var clone = document.createElement('div');
                 clone.className = 'flying-card';
                 clone.innerHTML = `
@@ -669,10 +749,8 @@
                 clone.querySelector('.f-desc').style.color = 'rgba(255, 255, 255, 0.04)';
                 clone.querySelector('.f-desc').style.letterSpacing = '4px';
                 document.body.appendChild(clone);
-
                 this.style.transition = 'opacity 0.3s ease';
                 this.style.opacity = '0';
-
                 requestAnimationFrame(function() {
                     clone.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
                     clone.style.width = '160px';
@@ -687,12 +765,10 @@
                     clone.querySelector('.f-title').style.fontSize = '0.75rem';
                     clone.querySelector('.f-desc').style.display = 'none';
                 });
-
                 setTimeout(function() {
                     sessionStorage.setItem('toolbox_from_home', 'true');
                     window.location.href = '/tool';
                 }, 550);
-
                 setTimeout(function() {
                     if (isTransitioning) {
                         var cloneStill = document.querySelector('.flying-card');
@@ -718,8 +794,6 @@
                     }
                 }, 3000);
             });
-
-            // 音乐控制
             var audio = new Audio('minecraft.mp3');
             audio.loop = true;
             audio.volume = 0.25;
@@ -727,12 +801,10 @@
             var stopBtn = document.getElementById('stopBtn');
             var musicIcon = document.getElementById('musicIcon');
             var isPlaying = false;
-
             function updatePlayBtn() {
                 playPauseBtn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
                 musicIcon.style.color = isPlaying ? 'rgba(100,200,255,0.06)' : 'rgba(255,255,255,0.015)';
             }
-
             function tryAutoPlay() {
                 audio.play().then(function() { isPlaying = true;
                     updatePlayBtn(); }).catch(function() { isPlaying = false;
@@ -759,8 +831,6 @@
                         updatePlayBtn(); }).catch(function() {});
                 }
             }, { once: false });
-
-            // 头像备用
             var avatarImg = document.getElementById('avatarImg');
             if (avatarImg) {
                 avatarImg.addEventListener('error', function() {
@@ -771,8 +841,6 @@
                     }
                 });
             }
-
-            // 弹幕
             var danmakuContainer = document.getElementById('danmakuContainer');
             var danmakuList = [
                 { text: '小逸罒不迷茫', color: 'color-1' },
@@ -804,7 +872,6 @@
                 { text: '创造无限', color: 'color-6' },
                 { text: '探索未知', color: 'color-7' }
             ];
-
             function createDanmaku() {
                 var el = document.createElement('div');
                 var data = danmakuList[Math.floor(Math.random() * danmakuList.length)];
@@ -819,7 +886,6 @@
                 danmakuContainer.appendChild(el);
                 setTimeout(function() { if (el.parentNode) el.remove(); }, (duration + 25) * 1000 + 500);
             }
-
             for (var i = 0; i < 50; i++) {
                 setTimeout(createDanmaku, i * 200);
             }
